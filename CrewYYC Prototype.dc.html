@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F5F2;color:#1C1A17;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#00675E;font-weight:600}a:hover{color:#0B2A3C}
+*:focus-visible{outline:3px solid #00A396;outline-offset:2px;border-radius:6px}
+button{font-family:inherit}input,select,textarea{font-family:inherit;font-size:15px}
+input[type=range]{accent-color:#00A396}input[type=checkbox]{accent-color:#0B2A3C;width:18px;height:18px}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#0B2A3C;color:#fff;padding:8px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+  <span style="font:700 12px Manrope;letter-spacing:.08em;text-transform:uppercase;color:#9BE3DC">Prototype</span>
+  <div style="display:flex;gap:4px;flex-wrap:wrap">
+    <sc-for list="{{ screens }}" as="sc" hint-placeholder-count="10">
+      <button onClick="{{ sc.onClick }}" style="background:{{ sc.bg }};color:{{ sc.fg }};border:none;border-radius:6px;padding:6px 10px;font:600 12px Manrope;cursor:pointer">{{ sc.label }}</button>
+    </sc-for>
+  </div>
+</div>
+
+<sc-if value="{{ marketingNav }}" hint-placeholder-val="{{ true }}">
+<header style="background:#fff;border-bottom:1px solid #E6E1DA">
+  <div style="max-width:1200px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px">
+    <button onClick="{{ goLanding }}" style="display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;padding:0">
+      <span style="width:30px;height:30px;border-radius:8px;background:#0B2A3C;color:#00C2B2;display:grid;place-items:center;font:800 16px Manrope">✓</span>
+      <span style="font:800 19px Manrope;color:#0B2A3C;letter-spacing:-.02em">CrewYYC</span>
+    </button>
+    <nav style="display:flex;gap:22px;flex:1">
+      <a href="#how" style="color:#3D3A36;text-decoration:none;font-size:14px">How it works</a>
+      <button onClick="{{ goPricing }}" style="background:none;border:none;color:#3D3A36;font:600 14px Manrope;cursor:pointer;padding:0">Pricing</button>
+      <button onClick="{{ goInvestor }}" style="background:none;border:none;color:#3D3A36;font:600 14px Manrope;cursor:pointer;padding:0">For investors</button>
+    </nav>
+    <button onClick="{{ goPassport }}" style="background:none;border:none;color:#0B2A3C;font:600 14px Manrope;cursor:pointer">Log in</button>
+    <button onClick="{{ goOnboardBuilder }}" style="background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:10px 16px;font:700 14px Manrope;cursor:pointer" style-hover="background:#FF7478">Join free</button>
+  </div>
+</header>
+</sc-if>
+
+<sc-if value="{{ appNav }}" hint-placeholder-val="{{ false }}">
+<header style="background:#fff;border-bottom:1px solid #E6E1DA">
+  <div style="max-width:1200px;margin:0 auto;padding:12px 32px;display:flex;align-items:center;gap:28px">
+    <button onClick="{{ goLanding }}" style="display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;padding:0">
+      <span style="width:28px;height:28px;border-radius:8px;background:#0B2A3C;color:#00C2B2;display:grid;place-items:center;font:800 15px Manrope">✓</span>
+      <span style="font:800 18px Manrope;color:#0B2A3C;letter-spacing:-.02em">CrewYYC</span>
+    </button>
+    <nav style="display:flex;gap:4px;flex:1">
+      <sc-for list="{{ appLinks }}" as="l" hint-placeholder-count="5">
+        <button onClick="{{ l.onClick }}" style="background:{{ l.bg }};border:none;border-radius:6px;padding:8px 12px;color:#0B2A3C;font:600 14px Manrope;cursor:pointer">{{ l.label }}</button>
+      </sc-for>
+    </nav>
+    <span style="font-size:13px;color:#5E5A55">{{ viewerLabel }}</span>
+    <span style="width:34px;height:34px;border-radius:50%;background:#E6E1DA;color:#0B2A3C;display:grid;place-items:center;font:700 13px Manrope">{{ viewerInit }}</span>
+  </div>
+</header>
+</sc-if>
+
+<!-- 1 LANDING -->
+<sc-if value="{{ is_landing }}" hint-placeholder-val="{{ true }}">
+<main data-screen-label="01 Landing">
+  <section style="max-width:1200px;margin:0 auto;padding:72px 32px 64px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:56px;align-items:center">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <span style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;background:#E0F7F5;color:#00574F;border:1px solid #9BE3DC;border-radius:999px;padding:5px 12px;font:600 13px Manrope"><span style="width:16px;height:16px;border-radius:50%;background:#00C2B2;color:#0B2A3C;display:grid;place-items:center;font-size:10px;font-weight:800">✓</span>Verified by event organizers across Calgary</span>
+      <h1 style="margin:0;font:800 60px/1.02 Manrope;letter-spacing:-.035em;color:#0B2A3C;text-wrap:balance">Find a builder who can commit this month.</h1>
+      <p style="margin:0;font:500 21px/1.45 Manrope;color:#3D3A36">Verified experience. Real availability. Clear commitments.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">
+        <button onClick="{{ goOnboardBuilder }}" style="background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:15px 24px;font:800 16px Manrope;cursor:pointer" style-hover="background:#FF7478">Join free</button>
+        <button onClick="{{ goOnboardFounder }}" style="background:#fff;color:#0B2A3C;border:1.5px solid #0B2A3C;border-radius:8px;padding:15px 24px;font:700 16px Manrope;cursor:pointer" style-hover="background:#EEF2F4">I'm a founder</button>
+      </div>
+      <p style="margin:4px 0 0;font:500 14px Manrope;color:#5E5A55">Skills are public. Capacity and follow-through aren't.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #E6E1DA;border-radius:16px;box-shadow:0 24px 48px -24px rgba(11,42,60,.25);padding:28px;display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="width:52px;height:52px;border-radius:50%;background:#0B2A3C;color:#fff;display:grid;place-items:center;font:700 18px Manrope">PS</span>
+        <div style="flex:1"><div style="font:800 20px Manrope;color:#0B2A3C">Priya S.</div><div style="font-size:14px;color:#5E5A55">Full-stack developer · Calgary</div></div>
+        <span style="font:600 12px Manrope;color:#5E5A55">Builder passport</span>
+      </div>
+      <div style="background:#E0F7F5;border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:baseline;gap:8px"><span style="font:800 34px Manrope;color:#0B2A3C;letter-spacing:-.02em">8 hrs/wk</span><span style="font:600 15px Manrope;color:#00574F">free until Dec 15</span></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+          <div style="height:8px;border-radius:4px;background:#00C2B2"></div><div style="height:8px;border-radius:4px;background:#00C2B2"></div><div style="height:8px;border-radius:4px;background:#00C2B2"></div><div style="height:8px;border-radius:4px;background:#00C2B2"></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px"><span style="flex:none;width:18px;height:18px;border-radius:50%;background:#00C2B2;color:#0B2A3C;display:grid;place-items:center;font-size:11px;font-weight:800;margin-top:1px">✓</span><span><b>BuildYYC 2026</b> · built a Stripe checkout<br><span style="color:#5E5A55">confirmed by BuildYYC organizers</span></span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px"><span style="flex:none;width:18px;height:18px;border-radius:50%;background:#00C2B2;color:#0B2A3C;display:grid;place-items:center;font-size:11px;font-weight:800;margin-top:1px">✓</span><span><b>CalgaryHacks 2026</b> · finalist<br><span style="color:#5E5A55">confirmed by organizer</span></span></div>
+      </div>
+      <div style="border-top:1px solid #E6E1DA;padding-top:16px;display:flex;align-items:baseline;gap:8px"><span style="font:800 28px Manrope;color:#0B2A3C">3</span><span style="font:600 14px Manrope;color:#3D3A36">commitments completed, co-signed</span></div>
+    </div>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:0 32px 72px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+    <div style="border-top:2px solid #0B2A3C;padding-top:20px;display:flex;flex-direction:column;gap:8px"><h3 style="margin:0;font:800 20px Manrope;color:#0B2A3C">Real availability</h3><p style="margin:0;font-size:15px;line-height:1.55;color:#3D3A36">Builders set the hours they have free for the next 4 weeks. You see capacity before you reach out.</p></div>
+    <div style="border-top:2px solid #0B2A3C;padding-top:20px;display:flex;flex-direction:column;gap:8px"><h3 style="margin:0;font:800 20px Manrope;color:#0B2A3C">Verified experience</h3><p style="margin:0;font-size:15px;line-height:1.55;color:#3D3A36">Credentials are verified by event organizers and co-signed by teammates. Proof of what shipped, not what's claimed.</p></div>
+    <div style="border-top:2px solid #0B2A3C;padding-top:20px;display:flex;flex-direction:column;gap:8px"><h3 style="margin:0;font:800 20px Manrope;color:#0B2A3C">Clear commitments</h3><p style="margin:0;font-size:15px;line-height:1.55;color:#3D3A36">Role, hours, deliverables and exit terms agreed up front, written from a lawyer-reviewed template.</p></div>
+  </section>
+
+  <section id="how" style="background:#0B2A3C;color:#fff">
+    <div style="max-width:1200px;margin:0 auto;padding:64px 32px;display:flex;flex-direction:column;gap:32px">
+      <h2 style="margin:0;font:800 34px Manrope;letter-spacing:-.02em">How it works</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:rgba(255,255,255,.12);border-radius:12px;overflow:hidden">
+        <div style="background:#0B2A3C;padding:28px;display:flex;flex-direction:column;gap:10px"><span style="font:800 14px Manrope;color:#00C2B2">01</span><span style="font:800 26px Manrope">Post</span><span style="font-size:15px;line-height:1.55;color:#C9D6DD">Describe the need: role, skills, hours per week, duration and what you can offer.</span></div>
+        <div style="background:#0B2A3C;padding:28px;display:flex;flex-direction:column;gap:10px"><span style="font:800 14px Manrope;color:#00C2B2">02</span><span style="font:800 26px Manrope">Match</span><span style="font-size:15px;line-height:1.55;color:#C9D6DD">See ranked builders with verified fit reasons and the hours they actually have free.</span></div>
+        <div style="background:#0B2A3C;padding:28px;display:flex;flex-direction:column;gap:10px"><span style="font:800 14px Manrope;color:#00C2B2">03</span><span style="font:800 26px Manrope">Commit</span><span style="font-size:15px;line-height:1.55;color:#C9D6DD">Agree terms, e-sign a plain-language deal, and check in together at the end date.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:72px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:40px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:12px"><h2 style="margin:0;font:800 34px/1.1 Manrope;letter-spacing:-.02em;color:#0B2A3C">Free to join. Pay when you commit.</h2><button onClick="{{ goPricing }}" style="align-self:flex-start;background:none;border:none;padding:0;color:#00675E;font:700 15px Manrope;cursor:pointer;text-decoration:underline">See all pricing</button></div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+      <div style="background:#fff;border:1px solid #E6E1DA;border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:6px"><span style="font:700 14px Manrope;color:#5E5A55">Free</span><span style="font:800 36px Manrope;color:#0B2A3C">$0</span><span style="font-size:14px;color:#3D3A36;line-height:1.5">Profile, browse, matching, messaging. 1 idea post for founders.</span></div>
+      <div style="background:#fff;border:1px solid #E6E1DA;border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:6px"><span style="font:700 14px Manrope;color:#5E5A55">Commitment Deal</span><span style="font:800 36px Manrope;color:#0B2A3C">$49</span><span style="font-size:14px;color:#3D3A36;line-height:1.5">Flat, per signed deal. Cash, equity or portfolio.</span></div>
+      <div style="background:#fff;border:1px solid #E6E1DA;border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:6px"><span style="font:700 14px Manrope;color:#5E5A55">Founder Plus</span><span style="font:800 36px Manrope;color:#0B2A3C">$19<span style="font-size:16px;color:#5E5A55">/mo</span></span><span style="font-size:14px;color:#3D3A36;line-height:1.5">Unlimited idea posts and boosted visibility.</span></div>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<!-- 2 ONBOARDING -->
+<sc-if value="{{ is_onboard }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="02 Onboarding" style="max-width:680px;margin:0 auto;padding:48px 24px 80px;display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font:700 13px Manrope;color:#00675E">Takes about 60 seconds</span><h1 style="margin:0;font:800 36px Manrope;letter-spacing:-.02em;color:#0B2A3C">Set up your passport</h1></div>
+  <div role="radiogroup" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <sc-for list="{{ roles }}" as="r" hint-placeholder-count="2">
+      <button role="radio" aria-checked="{{ r.on }}" onClick="{{ r.onClick }}" style="text-align:left;background:#fff;border:2px solid {{ r.bd }};border-radius:12px;padding:18px;cursor:pointer;display:flex;flex-direction:column;gap:4px"><span style="font:800 18px Manrope;color:#0B2A3C">{{ r.label }}</span><span style="font-size:14px;color:#5E5A55">{{ r.desc }}</span></button>
+    </sc-for>
+  </div>
+  <div style="background:#fff;border:1px solid #E6E1DA;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:24px">
+    <sc-if value="{{ isBuilder }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 14px Manrope;color:#0B2A3C">Skills</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ skillChips }}" as="c" hint-placeholder-count="8"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 13px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><label for="hrs" style="font:700 14px Manrope;color:#0B2A3C">Hours free per week, next 4 weeks</label><span style="font:800 32px Manrope;color:#0B2A3C;letter-spacing:-.02em">{{ hours }} <span style="font-size:15px;color:#5E5A55">hrs/wk</span></span></div>
+        <input id="hrs" type="range" min="0" max="20" step="1" value="{{ hours }}" onChange="{{ onHours }}" style="width:100%">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px"><sc-for list="{{ weeks }}" as="w" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:6px"><div style="height:10px;border-radius:5px;background:#E6E1DA;overflow:hidden"><div style="height:100%;width:{{ w.pct }}%;background:#00C2B2"></div></div><span style="font-size:12px;color:#5E5A55">Wk of {{ w.label }}</span></div></sc-for></div>
+        <span style="font:600 13px Manrope;color:#3D3A36">Shown on your passport as “{{ hoursText }}”. You can change it any time.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 14px Manrope;color:#0B2A3C">Compensation you're open to</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ compChips }}" as="c" hint-placeholder-count="4"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 15px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+        <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">GitHub<input defaultValue="github.com/priyas" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+        <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Devpost<input defaultValue="devpost.com/priyas" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+        <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Portfolio<input placeholder="https://" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isFounder }}" hint-placeholder-val="{{ false }}">
+      <label style="display:flex;flex-direction:column;gap:6px;font:700 14px Manrope;color:#0B2A3C">Your idea<textarea rows="3" defaultValue="Tallyfield: pre-orders for Calgary farmers' markets, so vendors know what to bring." style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500;line-height:1.5;resize:vertical"></textarea></label>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 14px Manrope;color:#0B2A3C">Stage</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ stageChips }}" as="c" hint-placeholder-count="4"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 15px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+      <label style="display:flex;flex-direction:column;gap:6px;font:700 14px Manrope;color:#0B2A3C;max-width:240px">Deadline<input type="date" defaultValue="2026-12-11" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+    </sc-if>
+    <div style="border-top:1px solid #E6E1DA;padding-top:20px;display:flex;flex-direction:column;gap:12px">
+      <label style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#1C1A17;cursor:pointer"><input type="checkbox" checked="{{ adult }}" onChange="{{ toggleAdult }}">I confirm I am 18 or older.</label>
+      <label style="display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;color:#1C1A17;cursor:pointer"><input type="checkbox" checked="{{ consent }}" onChange="{{ toggleConsent }}">I agree to the Terms and Privacy Policy, and consent to CrewYYC showing my verified credentials and availability to signed-in members.</label>
+    </div>
+    <button disabled="{{ cantCreate }}" onClick="{{ createAccount }}" style="background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:15px;font:800 16px Manrope;cursor:pointer;opacity:{{ createOpacity }}">{{ createLabel }}</button>
+  </div>
+</main>
+</sc-if>
+
+<!-- 3 PASSPORT -->
+<sc-if value="{{ is_passport }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="03 Builder passport" style="max-width:1200px;margin:0 auto;padding:40px 32px 80px;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:32px;align-items:start">
+  <div style="display:flex;flex-direction:column;gap:28px">
+    <div style="display:flex;gap:20px;align-items:center">
+      <span style="width:84px;height:84px;border-radius:50%;background:#0B2A3C;color:#fff;display:grid;place-items:center;font:700 28px Manrope;flex:none">PS</span>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span style="font:700 12px Manrope;letter-spacing:.08em;text-transform:uppercase;color:#5E5A55">Builder passport</span>
+        <h1 style="margin:0;font:800 38px Manrope;letter-spacing:-.025em;color:#0B2A3C">Priya S.</h1>
+        <span style="font-size:15px;color:#3D3A36">Full-stack developer · Calgary, AB · Open to Paid, Equity</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ priyaSkills }}" as="k" hint-placeholder-count="6"><span style="background:#fff;border:1px solid #E6E1DA;border-radius:6px;padding:5px 10px;font:600 13px Manrope;color:#0B2A3C">{{ k }}</span></sc-for></div>
+    <div style="display:flex;flex-direction:column;gap:4px"><h2 style="margin:0;font:800 22px Manrope;color:#0B2A3C">Verified credentials</h2><span style="font-size:14px;color:#5E5A55">Every entry is confirmed by an organizer or co-signed by a teammate.</span></div>
+    <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+      <sc-for list="{{ timeline }}" as="t" hint-placeholder-count="5">
+        <li style="display:grid;grid-template-columns:90px 28px minmax(0,1fr);gap:12px">
+          <span style="font:600 13px Manrope;color:#5E5A55;padding-top:18px">{{ t.date }}</span>
+          <div style="display:flex;flex-direction:column;align-items:center"><span style="width:2px;height:18px;background:#D6D0C7"></span><span style="width:22px;height:22px;border-radius:50%;background:#00C2B2;color:#0B2A3C;display:grid;place-items:center;font-size:12px;font-weight:800;flex:none">✓</span><span style="width:2px;flex:1;background:#D6D0C7"></span></div>
+          <div style="padding:14px 0 18px;display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span style="font:700 12px Manrope;letter-spacing:.04em;text-transform:uppercase;color:#00675E">{{ t.kind }}</span><sc-if value="{{ t.isNew }}"><span style="background:#FF5A5F;color:#0B2A3C;border-radius:4px;padding:1px 6px;font:800 11px Manrope">NEW</span></sc-if></div>
+            <span style="font:700 17px Manrope;color:#0B2A3C">{{ t.title }}</span>
+            <span style="font-size:14px;color:#3D3A36">{{ t.detail }}</span>
+            <span style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:#E0F7F5;color:#00574F;border-radius:999px;padding:3px 10px;font:600 12px Manrope">✓ {{ t.source }}</span>
+          </div>
+        </li>
+      </sc-for>
+    </ol>
+  </div>
+  <aside style="position:sticky;top:64px;display:flex;flex-direction:column;gap:16px">
+    <div style="background:#0B2A3C;color:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+      <span style="display:inline-flex;align-items:center;gap:8px;font:700 13px Manrope;color:#9BE3DC"><span style="width:10px;height:10px;border-radius:50%;background:#00C2B2"></span>Available</span>
+      <span style="font:800 46px/1 Manrope;letter-spacing:-.03em">8 hrs/wk</span>
+      <span style="font:600 16px Manrope;color:#E0F7F5">free until Dec 15</span>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px"><sc-for list="{{ priyaWeeks }}" as="w" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:6px"><div style="height:10px;border-radius:5px;background:rgba(255,255,255,.18);overflow:hidden"><div style="height:100%;width:{{ w.pct }}%;background:#00C2B2"></div></div><span style="font-size:11px;color:#C9D6DD">{{ w.label }}</span></div></sc-for></div>
+      <span style="font-size:12px;color:#C9D6DD">Updated by Priya 2 days ago</span>
+    </div>
+    <div style="background:#fff;border:1px solid #E6E1DA;border-radius:16px;padding:22px;display:flex;align-items:center;gap:16px">
+      <span style="font:800 48px/1 Manrope;color:#0B2A3C">{{ commitCount }}</span>
+      <span style="font:600 15px/1.4 Manrope;color:#3D3A36">commitments completed, co-signed by founders</span>
+    </div>
+    <div style="background:#fff;border:1px solid #E6E1DA;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px;font-size:14px">
+      <a href="#">github.com/priyas</a><a href="#">devpost.com/priyas</a>
+    </div>
+    <button onClick="{{ goDeal }}" style="background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:15px;font:800 16px Manrope;cursor:pointer" style-hover="background:#FF7478">Request to commit</button>
+    <span style="font-size:12px;line-height:1.5;color:#5E5A55">Passports show verified facts only. There are no ratings on CrewYYC.</span>
+  </aside>
+</main>
+</sc-if>
+
+<!-- 4 FOUNDER DASHBOARD -->
+<sc-if value="{{ is_dashboard }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="04 Founder dashboard" style="max-width:1200px;margin:0 auto;padding:40px 32px 80px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:32px;align-items:start">
+  <div style="display:flex;flex-direction:column;gap:20px">
+    <h1 style="margin:0;font:800 34px Manrope;letter-spacing:-.02em;color:#0B2A3C">Hi Leah</h1>
+    <div style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:700 12px Manrope;letter-spacing:.06em;text-transform:uppercase;color:#5E5A55">Your idea</span><span style="background:#F1EEEA;border-radius:4px;padding:2px 8px;font:600 12px Manrope;color:#3D3A36">Prototype</span></div>
+      <span style="font:800 22px Manrope;color:#0B2A3C">Tallyfield</span>
+      <span style="font-size:14px;line-height:1.5;color:#3D3A36">Pre-orders for Calgary farmers' markets. Deadline Dec 11.</span>
+    </div>
+    <div style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px">
+      <span style="font:700 12px Manrope;letter-spacing:.06em;text-transform:uppercase;color:#5E5A55">Open need</span>
+      <span style="font:700 17px Manrope;color:#0B2A3C">React Native + Stripe · 8 hrs/wk · 6 weeks · Paid or Equity</span>
+      <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px;color:#00675E;font-weight:700">3 builders available now</span><button onClick="{{ goMatches }}" style="background:#0B2A3C;color:#fff;border:none;border-radius:8px;padding:9px 14px;font:700 14px Manrope;cursor:pointer">View matches</button></div>
+    </div>
+    <div style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px">
+      <span style="font:700 12px Manrope;letter-spacing:.06em;text-transform:uppercase;color:#5E5A55">Plan</span>
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:700 16px Manrope;color:#0B2A3C">Free</span><span style="font:600 14px Manrope;color:#3D3A36">1 of 1 idea posts used</span></div>
+      <div style="height:8px;border-radius:4px;background:#0B2A3C"></div>
+      <button onClick="{{ openPaywall }}" style="align-self:flex-start;background:#fff;color:#0B2A3C;border:1.5px solid #0B2A3C;border-radius:8px;padding:9px 14px;font:700 14px Manrope;cursor:pointer">+ Post another idea</button>
+    </div>
+  </div>
+  <div style="background:#fff;border:1px solid #E6E1DA;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;flex-direction:column;gap:4px"><h2 style="margin:0;font:800 24px Manrope;color:#0B2A3C">Post a need</h2><span style="font-size:14px;color:#5E5A55">For Tallyfield. Needs on an existing idea are free.</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Role needed<select style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;background:#fff"><option>Mobile developer</option><option>Full-stack developer</option><option>Product designer</option><option>Product manager</option><option>Data / ML</option></select></label>
+      <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Duration<select style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;background:#fff"><option>6 weeks</option><option>4 weeks</option><option>8 weeks</option><option>12 weeks</option></select></label>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 13px Manrope;color:#0B2A3C">Skills</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ needSkillChips }}" as="c" hint-placeholder-count="6"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 13px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><label for="nhrs" style="font:700 13px Manrope;color:#0B2A3C">Hours per week</label><span style="font:800 28px Manrope;color:#0B2A3C">{{ needHours }} <span style="font-size:14px;color:#5E5A55">hrs/wk</span></span></div>
+      <input id="nhrs" type="range" min="2" max="20" value="{{ needHours }}" onChange="{{ onNeedHours }}" style="width:100%">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 13px Manrope;color:#0B2A3C">Compensation offered</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ needCompChips }}" as="c" hint-placeholder-count="3"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 15px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+    <button onClick="{{ goMatches }}" style="background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:15px;font:800 16px Manrope;cursor:pointer" style-hover="background:#FF7478">Post and find matches</button>
+  </div>
+  <sc-if value="{{ paywall }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;background:rgba(11,42,60,.55);display:grid;place-items:center;z-index:60;padding:24px">
+      <div role="dialog" aria-modal="true" style="background:#fff;border-radius:16px;max-width:460px;padding:32px;display:flex;flex-direction:column;gap:16px;box-shadow:0 30px 60px -20px rgba(0,0,0,.4)">
+        <h2 style="margin:0;font:800 24px/1.25 Manrope;color:#0B2A3C">You've used your 1 free idea post.</h2>
+        <p style="margin:0;font-size:16px;line-height:1.5;color:#3D3A36">Upgrade to Founder Plus ($19/mo) to post more.</p>
+        <div style="background:#F7F5F2;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px;font-size:14px;color:#1C1A17"><span>✓ Unlimited idea posts</span><span>✓ Boosted visibility in builder feeds</span><span>✓ Cancel any time</span></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button onClick="{{ closePaywall }}" style="background:none;border:none;color:#0B2A3C;font:700 15px Manrope;cursor:pointer;padding:12px">Not now</button>
+          <button onClick="{{ closePaywall }}" style="background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:12px 18px;font:800 15px Manrope;cursor:pointer">Upgrade · $19/mo</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</main>
+</sc-if>
+
+<!-- 5 MATCHES -->
+<sc-if value="{{ is_matches }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="05 Match results" style="max-width:1200px;margin:0 auto;padding:40px 32px 80px;display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;flex-direction:column;gap:8px"><span style="font:700 13px Manrope;color:#5E5A55">Matches for Tallyfield</span><h1 style="margin:0;font:800 32px Manrope;letter-spacing:-.02em;color:#0B2A3C">React Native + Stripe · 8 hrs/wk · 6 weeks · Paid or Equity</h1><span style="font-size:15px;color:#3D3A36">Ranked by verified fit and hours free this month.</span></div>
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;align-items:stretch">
+    <sc-for list="{{ builders }}" as="b" hint-placeholder-count="3">
+      <article style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;align-items:center;gap:12px"><span style="font:800 14px Manrope;color:#5E5A55">#{{ b.rank }}</span><span style="width:42px;height:42px;border-radius:50%;background:#0B2A3C;color:#fff;display:grid;place-items:center;font:700 15px Manrope">{{ b.init }}</span><div style="display:flex;flex-direction:column"><span style="font:800 17px Manrope;color:#0B2A3C">{{ b.name }}</span><span style="font-size:13px;color:#5E5A55">{{ b.role }}</span></div></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;align-items:baseline;gap:6px"><span style="font:800 26px Manrope;color:#0B2A3C">{{ b.hrs }} hrs/wk</span><span style="font:600 13px Manrope;color:#00574F">free until {{ b.until }}</span></div><div style="height:8px;border-radius:4px;background:#E6E1DA;overflow:hidden"><div style="height:100%;width:{{ b.pct }}%;background:#00C2B2"></div></div></div>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;flex:1"><sc-for list="{{ b.reasons }}" as="r" hint-placeholder-count="3"><li style="display:flex;gap:8px;font-size:14px;line-height:1.4;color:#1C1A17"><span style="flex:none;width:18px;height:18px;border-radius:50%;background:#00C2B2;color:#0B2A3C;display:grid;place-items:center;font-size:11px;font-weight:800">✓</span>{{ r }}</li></sc-for></ul>
+        <sc-if value="{{ b.notRequested }}" hint-placeholder-val="{{ true }}"><button onClick="{{ b.onRequest }}" style="background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:12px;font:800 15px Manrope;cursor:pointer" style-hover="background:#FF7478">Request to commit</button></sc-if>
+        <sc-if value="{{ b.requested }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:8px"><span style="font:700 14px Manrope;color:#00574F">✓ {{ b.first }} accepted your request</span><button onClick="{{ goDeal }}" style="background:#0B2A3C;color:#fff;border:none;border-radius:8px;padding:12px;font:700 15px Manrope;cursor:pointer">Set up the deal →</button></div></sc-if>
+        <button onClick="{{ goPassport }}" style="background:none;border:none;color:#0B2A3C;font:600 14px Manrope;cursor:pointer;text-decoration:underline;padding:0">View passport</button>
+      </article>
+    </sc-for>
+    <article aria-label="Unavailable this month" style="background:#EFECE8;border:1px dashed #BDB6AC;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="font:800 14px Manrope;color:#5E5A55">—</span><span style="width:42px;height:42px;border-radius:50%;background:#BDB6AC;color:#fff;display:grid;place-items:center;font:700 15px Manrope">ML</span><div style="display:flex;flex-direction:column"><span style="font:800 17px Manrope;color:#3D3A36">Marcus L.</span><span style="font-size:13px;color:#5E5A55">Senior mobile + payments</span></div></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font:800 26px Manrope;color:#3D3A36">0 hrs free</span><span style="font:700 13px Manrope;color:#5E5A55">until Dec 14</span><div style="height:8px;border-radius:4px;background:#D6D0C7"></div></div>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;flex:1;color:#5E5A55;font-size:14px;line-height:1.4"><li>React Native · 6 years</li><li>Stripe Connect lead</li><li>Open to equity</li></ul>
+      <div style="background:#fff;border-radius:8px;padding:12px;font:600 13px/1.45 Manrope;color:#3D3A36">Perfect on paper. No capacity this month.</div>
+      <button style="background:#fff;color:#3D3A36;border:1px solid #BDB6AC;border-radius:8px;padding:12px;font:700 14px Manrope;cursor:pointer">Notify me when free</button>
+    </article>
+  </div>
+</main>
+</sc-if>
+
+<!-- 6 DEAL -->
+<sc-if value="{{ is_deal }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="06 Commitment deal" style="max-width:860px;margin:0 auto;padding:40px 24px 80px;display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:6px"><span style="font:700 13px Manrope;color:#5E5A55">Commitment Deal</span><h1 style="margin:0;font:800 30px Manrope;letter-spacing:-.02em;color:#0B2A3C">Tallyfield × Priya S.</h1></div><span style="font-size:14px;color:#3D3A36">Leah M. (founder) and Priya S. (builder)</span></div>
+  <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+    <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3"><li style="display:flex;flex-direction:column;gap:8px"><div style="height:4px;border-radius:2px;background:{{ st.bar }}"></div><span style="font:700 13px Manrope;color:{{ st.fg }}">{{ st.n }}. {{ st.label }}</span></li></sc-for>
+  </ol>
+
+  <sc-if value="{{ step1 }}" hint-placeholder-val="{{ true }}">
+  <div style="background:#fff;border:1px solid #E6E1DA;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font:800 22px Manrope;color:#0B2A3C">Agree terms</h2>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:14px">
+      <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Role<input defaultValue="Mobile developer (React Native + Stripe)" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+      <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Hours/week<input type="number" defaultValue="8" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+    </div>
+    <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Deliverables<textarea rows="3" defaultValue="1. Pre-order flow in the Tallyfield React Native app. 2. Stripe checkout with vendor payouts. 3. Handover notes and a 30-minute walkthrough." style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500;line-height:1.5;resize:vertical"></textarea></label>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Start date<input type="date" defaultValue="2026-11-02" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+      <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">End date<input type="date" defaultValue="2026-12-11" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 13px Manrope;color:#0B2A3C">Compensation type</span>
+      <div role="radiogroup" style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #D6D0C7;border-radius:10px;overflow:hidden"><sc-for list="{{ compTypes }}" as="c" hint-placeholder-count="3"><button role="radio" aria-checked="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:none;padding:12px;font:700 14px Manrope;cursor:pointer">{{ c.label }}</button></sc-for></div>
+      <sc-if value="{{ isEquity }}" hint-placeholder-val="{{ true }}">
+        <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Equity intent<input defaultValue="0.5% of Tallyfield, 6-month cliff" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+        <div role="note" style="background:#FFF4E5;border:1px solid #F2C98A;border-radius:10px;padding:12px 14px;font:600 14px/1.5 Manrope;color:#5C3B00">Equity is recorded as intent only. Any shares must be issued through a lawyer.</div>
+      </sc-if>
+      <sc-if value="{{ isPaid }}" hint-placeholder-val="{{ false }}">
+        <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Contract value (CAD)<input defaultValue="$4,800" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+        <div role="note" style="background:#F1EEEA;border-radius:10px;padding:12px 14px;font:600 14px/1.5 Manrope;color:#3D3A36">Cash contract: a 9% fee applies instead of the $49 deal fee.</div>
+      </sc-if>
+      <sc-if value="{{ isPortfolio }}" hint-placeholder-val="{{ false }}">
+        <div role="note" style="background:#F1EEEA;border-radius:10px;padding:12px 14px;font:600 14px/1.5 Manrope;color:#3D3A36">Portfolio: Priya can show the shipped work publicly, credited to her.</div>
+      </sc-if>
+    </div>
+    <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Exit terms<textarea rows="2" defaultValue="Either person can end the deal with 7 days' written notice. Work delivered to date is handed over." style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500;line-height:1.5;resize:vertical"></textarea></label>
+    <button onClick="{{ next }}" style="align-self:flex-end;background:#0B2A3C;color:#fff;border:none;border-radius:8px;padding:13px 22px;font:700 15px Manrope;cursor:pointer">Generate agreement →</button>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ step2 }}" hint-placeholder-val="{{ false }}">
+  <div role="alert" style="background:#FFF4E5;border:1px solid #F2C98A;border-radius:12px;padding:14px 18px;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap"><span style="font:700 15px/1.45 Manrope;color:#5C3B00">Template, not legal advice. Talk to a lawyer for equity or binding terms.</span><a href="#" style="color:#5C3B00">Find a lawyer →</a></div>
+  <article style="background:#fff;border:1px solid #E6E1DA;border-radius:16px;padding:40px 48px;display:flex;flex-direction:column;gap:22px;font-size:16px;line-height:1.6;color:#1C1A17">
+    <div style="display:flex;flex-direction:column;gap:4px"><span style="font:700 12px Manrope;letter-spacing:.08em;text-transform:uppercase;color:#5E5A55">Plain-language agreement</span><h2 style="margin:0;font:800 26px Manrope;color:#0B2A3C">Commitment between Tallyfield and Priya S.</h2></div>
+    <section style="display:flex;flex-direction:column;gap:4px"><h3 style="margin:0;font:800 16px Manrope;color:#0B2A3C">1. The work</h3><p style="margin:0">Priya will build the pre-order flow and Stripe checkout in the Tallyfield app, then hand over notes and a 30-minute walkthrough.</p></section>
+    <section style="display:flex;flex-direction:column;gap:4px"><h3 style="margin:0;font:800 16px Manrope;color:#0B2A3C">2. Time</h3><p style="margin:0">About 8 hours a week from Mon, Nov 2 to Fri, Dec 11, 2026 (6 weeks).</p></section>
+    <section style="display:flex;flex-direction:column;gap:4px"><h3 style="margin:0;font:800 16px Manrope;color:#0B2A3C">3. Compensation</h3><p style="margin:0">{{ compClause }}</p></section>
+    <section style="display:flex;flex-direction:column;gap:4px"><h3 style="margin:0;font:800 16px Manrope;color:#0B2A3C">4. Ending early</h3><p style="margin:0">Either person can end the deal with 7 days' written notice. Work delivered to date is handed over.</p></section>
+    <section style="display:flex;flex-direction:column;gap:4px"><h3 style="margin:0;font:800 16px Manrope;color:#0B2A3C">5. Check-in</h3><p style="margin:0">On Dec 11 both people confirm whether the work shipped. If both confirm, a co-signed credential is added to both profiles.</p></section>
+    <span style="border-top:1px solid #E6E1DA;padding-top:14px;font-size:13px;color:#5E5A55">Generated from a lawyer-reviewed template · v2.1 · Alberta</span>
+  </article>
+  <div style="display:flex;justify-content:space-between"><button onClick="{{ back }}" style="background:none;border:none;color:#0B2A3C;font:700 15px Manrope;cursor:pointer">← Edit terms</button><button onClick="{{ next }}" style="background:#0B2A3C;color:#fff;border:none;border-radius:8px;padding:13px 22px;font:700 15px Manrope;cursor:pointer">Continue to sign →</button></div>
+  </sc-if>
+
+  <sc-if value="{{ step3 }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <sc-for list="{{ signers }}" as="sg" hint-placeholder-count="2">
+      <div style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px">
+        <span style="font:700 13px Manrope;color:#5E5A55">{{ sg.role }}</span>
+        <span style="font:800 18px Manrope;color:#0B2A3C">{{ sg.name }}</span>
+        <div style="height:72px;border-bottom:2px solid #0B2A3C;display:flex;align-items:flex-end;padding-bottom:6px"><span style="font:italic 600 28px Georgia,serif;color:#0B2A3C">{{ sg.sig }}</span></div>
+        <sc-if value="{{ sg.signed }}"><span style="font:700 14px Manrope;color:#00574F">✓ Signed {{ sg.when }}</span></sc-if>
+        <sc-if value="{{ sg.unsigned }}" hint-placeholder-val="{{ true }}"><button onClick="{{ sg.onSign }}" style="background:#0B2A3C;color:#fff;border:none;border-radius:8px;padding:12px;font:700 15px Manrope;cursor:pointer">{{ sg.cta }}</button></sc-if>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:24px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:4px"><span style="font:700 13px Manrope;color:#5E5A55">{{ feeLabel }}</span><span style="font:800 40px Manrope;letter-spacing:-.02em;color:#0B2A3C">{{ feeAmount }}</span><span style="font-size:14px;color:#3D3A36">{{ feeNote }}</span></div>
+    <button disabled="{{ cantPay }}" onClick="{{ pay }}" style="background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:15px 26px;font:800 16px Manrope;cursor:pointer;opacity:{{ payOpacity }}">{{ payLabel }}</button>
+  </div>
+  <sc-if value="{{ paid }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#0B2A3C;color:#fff;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:12px">
+      <span style="width:44px;height:44px;border-radius:50%;background:#00C2B2;color:#0B2A3C;display:grid;place-items:center;font:800 22px Manrope">✓</span>
+      <h2 style="margin:0;font:800 28px Manrope">Deal signed. Priya starts Mon, Nov 2.</h2>
+      <p style="margin:0;font-size:16px;line-height:1.5;color:#C9D6DD">Both of you have a copy by email. We'll ask you both to check in on Fri, Dec 11.</p>
+      <button onClick="{{ goCheckin }}" style="align-self:flex-start;background:#fff;color:#0B2A3C;border:none;border-radius:8px;padding:12px 18px;font:700 15px Manrope;cursor:pointer">Preview the Dec 11 check-in →</button>
+    </div>
+  </sc-if>
+  </sc-if>
+</main>
+</sc-if>
+
+<!-- 7 CHECK-IN -->
+<sc-if value="{{ is_checkin }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="07 Check-in" style="max-width:860px;margin:0 auto;padding:40px 24px 80px;display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font:700 13px Manrope;color:#5E5A55">Follow-through check-in · Fri, Dec 11</span><h1 style="margin:0;font:800 32px Manrope;letter-spacing:-.02em;color:#0B2A3C">Did the Tallyfield checkout ship?</h1><span style="font-size:15px;color:#3D3A36">Each person answers separately. Nothing negative is ever shown on a profile.</span></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <sc-for list="{{ checkins }}" as="c" hint-placeholder-count="2">
+      <div style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:36px;height:36px;border-radius:50%;background:#0B2A3C;color:#fff;display:grid;place-items:center;font:700 13px Manrope">{{ c.init }}</span><div style="display:flex;flex-direction:column"><span style="font:800 16px Manrope;color:#0B2A3C">{{ c.name }}</span><span style="font-size:13px;color:#5E5A55">{{ c.role }}</span></div></div>
+        <div role="radiogroup" style="display:flex;flex-direction:column;gap:8px"><sc-for list="{{ c.opts }}" as="o" hint-placeholder-count="3"><button role="radio" aria-checked="{{ o.on }}" onClick="{{ o.onClick }}" style="text-align:left;background:{{ o.bg }};color:{{ o.fg }};border:1.5px solid {{ o.bd }};border-radius:10px;padding:13px 14px;font:700 15px Manrope;cursor:pointer">{{ o.mark }}{{ o.label }}</button></sc-for></div>
+      </div>
+    </sc-for>
+  </div>
+  <sc-if value="{{ bothShipped }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#fff;border:2px solid #00C2B2;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:14px">
+      <span style="font:700 13px Manrope;color:#00574F">New credential added to both profiles</span>
+      <div style="display:flex;gap:14px;align-items:flex-start"><span style="flex:none;width:36px;height:36px;border-radius:50%;background:#00C2B2;color:#0B2A3C;display:grid;place-items:center;font:800 18px Manrope">✓</span><div style="display:flex;flex-direction:column;gap:4px"><span style="font:800 20px Manrope;color:#0B2A3C">Shipped: Tallyfield pre-order checkout</span><span style="font-size:14px;color:#3D3A36">React Native + Stripe · 6 weeks · Nov 2 – Dec 11, 2026</span><span style="font:600 13px Manrope;color:#00574F">✓ Co-signed by Leah M. and Priya S.</span></div></div>
+      <button onClick="{{ goPassport }}" style="align-self:flex-start;background:#0B2A3C;color:#fff;border:none;border-radius:8px;padding:11px 16px;font:700 14px Manrope;cursor:pointer">See it on Priya's passport →</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{ hasCheckinNote }}" hint-placeholder-val="{{ false }}"><div style="background:#F1EEEA;border-radius:12px;padding:16px 18px;font:600 15px/1.5 Manrope;color:#3D3A36">{{ checkinNote }}</div></sc-if>
+</main>
+</sc-if>
+
+<!-- 8 INVESTOR -->
+<sc-if value="{{ is_investor }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="08 Investor view" style="max-width:1200px;margin:0 auto;padding:40px 32px 80px;display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:6px"><span style="font:700 13px Manrope;color:#5E5A55">Investor access</span><h1 style="margin:0;font:800 32px Manrope;letter-spacing:-.02em;color:#0B2A3C">Verified founders and builders in Calgary</h1></div>
+    <label style="display:flex;align-items:center;gap:8px;font:600 13px Manrope;color:#3D3A36"><input type="checkbox" checked="{{ invSub }}" onChange="{{ toggleSub }}">Preview as subscriber</label></div>
+  <div style="position:relative">
+    <div style="display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:start;filter:{{ lockBlur }};pointer-events:{{ lockPE }}" aria-hidden="{{ invLocked }}">
+      <aside style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="font:700 13px Manrope;color:#0B2A3C">Profile type</span><div style="display:flex;flex-direction:column;gap:4px"><sc-for list="{{ invTypes }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.onClick }}" style="text-align:left;background:{{ t.bg }};color:{{ t.fg }};border:none;border-radius:6px;padding:8px 10px;font:600 14px Manrope;cursor:pointer">{{ t.label }}</button></sc-for></div></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="font:700 13px Manrope;color:#0B2A3C">Skills</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="border:1px solid #D6D0C7;border-radius:999px;padding:4px 10px;font:600 13px Manrope">React Native</span><span style="border:1px solid #D6D0C7;border-radius:999px;padding:4px 10px;font:600 13px Manrope">Stripe</span><span style="border:1px solid #D6D0C7;border-radius:999px;padding:4px 10px;font:600 13px Manrope">Python</span><span style="border:1px solid #D6D0C7;border-radius:999px;padding:4px 10px;font:600 13px Manrope">Figma</span></div></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="font:700 13px Manrope;color:#0B2A3C">Shipped projects</span><select style="border:1px solid #D6D0C7;border-radius:8px;padding:8px 10px;background:#fff"><option>Any</option><option>1 or more</option><option>3 or more</option></select></div>
+        <label style="display:flex;gap:8px;align-items:center;font:600 14px Manrope;color:#1C1A17"><input type="checkbox" checked="{{ invAvail }}" onChange="{{ toggleAvail }}">Has hours free this month</label>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="font:700 13px Manrope;color:#0B2A3C">Sector</span><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="border:1px solid #D6D0C7;border-radius:999px;padding:4px 10px;font:600 13px Manrope">Agtech</span><span style="border:1px solid #D6D0C7;border-radius:999px;padding:4px 10px;font:600 13px Manrope">Energy</span><span style="border:1px solid #D6D0C7;border-radius:999px;padding:4px 10px;font:600 13px Manrope">Fintech</span><span style="border:1px solid #D6D0C7;border-radius:999px;padding:4px 10px;font:600 13px Manrope">Health</span></div></div>
+      </aside>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 14px Manrope;color:#5E5A55">{{ invCount }} profiles · intros happen only if the other person opts in</span>
+        <sc-for list="{{ profiles }}" as="p" hint-placeholder-count="4">
+          <article style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:20px;display:grid;grid-template-columns:48px minmax(0,1fr) 200px;gap:16px;align-items:start">
+            <span style="width:48px;height:48px;border-radius:50%;background:#0B2A3C;color:#fff;display:grid;place-items:center;font:700 16px Manrope">{{ p.init }}</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><span style="font:800 18px Manrope;color:#0B2A3C">{{ p.name }}</span><span style="font-size:14px;color:#3D3A36">{{ p.role }}</span><span style="background:#F1EEEA;border-radius:4px;padding:2px 8px;font:600 12px Manrope;color:#3D3A36">{{ p.type }}</span></div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ p.facts }}" as="f" hint-placeholder-count="2"><span style="background:#E0F7F5;color:#00574F;border-radius:999px;padding:3px 10px;font:600 12px Manrope">✓ {{ f }}</span></sc-for></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:stretch">
+              <span style="font:700 13px Manrope;color:{{ p.availFg }};text-align:right">{{ p.avail }}</span>
+              <sc-if value="{{ p.notAsked }}" hint-placeholder-val="{{ true }}"><button onClick="{{ p.onIntro }}" style="background:#0B2A3C;color:#fff;border:none;border-radius:8px;padding:10px;font:700 14px Manrope;cursor:pointer">Request intro</button></sc-if>
+              <sc-if value="{{ p.asked }}" hint-placeholder-val="{{ false }}"><span style="background:#F1EEEA;border-radius:8px;padding:10px;font:600 13px Manrope;color:#3D3A36;text-align:center">Waiting for {{ p.first }} to opt in</span></sc-if>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+    <sc-if value="{{ invLocked }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;inset:0;display:grid;place-items:start center;padding-top:60px">
+        <div style="background:#fff;border:1px solid #E6E1DA;border-radius:16px;box-shadow:0 30px 60px -24px rgba(11,42,60,.35);max-width:440px;padding:32px;display:flex;flex-direction:column;gap:14px">
+          <span style="font:700 13px Manrope;color:#5E5A55">🔒 Subscribers only</span>
+          <div style="display:flex;align-items:baseline;gap:6px"><span style="font:800 48px Manrope;letter-spacing:-.03em;color:#0B2A3C">$300</span><span style="font:600 16px Manrope;color:#5E5A55">/month, flat</span></div>
+          <p style="margin:0;font-size:15px;line-height:1.55;color:#3D3A36">Browse verified founder and builder profiles, filter by shipped work and availability, and request intros. Every intro needs the other person's opt-in.</p>
+          <button onClick="{{ toggleSub }}" style="background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:14px;font:800 16px Manrope;cursor:pointer">Subscribe to Investor Access</button>
+          <span style="font-size:13px;color:#5E5A55">Cancel any time.</span>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</main>
+</sc-if>
+
+<!-- 9 PRICING -->
+<sc-if value="{{ is_pricing }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="09 Pricing" style="max-width:1200px;margin:0 auto;padding:56px 32px 40px;display:flex;flex-direction:column;gap:40px">
+  <div style="display:flex;flex-direction:column;gap:10px;max-width:640px"><h1 style="margin:0;font:800 48px/1.05 Manrope;letter-spacing:-.03em;color:#0B2A3C">Free to join. Pay when you commit.</h1><p style="margin:0;font-size:18px;line-height:1.5;color:#3D3A36">Profiles, matching and messaging are free for everyone.</p></div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+    <sc-for list="{{ plans }}" as="p" hint-placeholder-count="6">
+      <div style="background:#fff;border:1px solid #E6E1DA;border-top:4px solid {{ p.top }};border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:12px">
+        <span style="font:700 13px Manrope;letter-spacing:.04em;text-transform:uppercase;color:#5E5A55">{{ p.who }}</span>
+        <span style="font:800 22px Manrope;color:#0B2A3C">{{ p.name }}</span>
+        <div style="display:flex;align-items:baseline;gap:6px"><span style="font:800 44px/1 Manrope;letter-spacing:-.03em;color:#0B2A3C">{{ p.price }}</span><span style="font:600 15px Manrope;color:#5E5A55">{{ p.unit }}</span></div>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;flex:1"><sc-for list="{{ p.items }}" as="i" hint-placeholder-count="3"><li style="display:flex;gap:8px;font-size:14px;line-height:1.45;color:#1C1A17"><span style="color:#00675E;font-weight:800">✓</span>{{ i }}</li></sc-for></ul>
+        <button onClick="{{ p.onClick }}" style="background:{{ p.btnBg }};color:{{ p.btnFg }};border:1.5px solid #0B2A3C;border-radius:8px;padding:12px;font:700 15px Manrope;cursor:pointer">{{ p.cta }}</button>
+      </div>
+    </sc-for>
+  </div>
+  <section style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:40px">
+    <h2 style="margin:0;font:800 30px Manrope;color:#0B2A3C">Questions</h2>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="4">
+        <details style="border-top:1px solid #E6E1DA;padding:18px 0"><summary style="font:700 17px Manrope;color:#0B2A3C;cursor:pointer">{{ f.q }}</summary><p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#3D3A36">{{ f.a }}</p></details>
+      </sc-for>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<!-- 10 MOBILE -->
+<sc-if value="{{ is_mobile }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="10 Mobile" style="padding:40px 32px 80px;display:flex;gap:40px;justify-content:center;flex-wrap:wrap">
+  <div style="display:flex;flex-direction:column;gap:12px;align-items:center"><span style="font:700 13px Manrope;color:#5E5A55">Match results</span>
+    <div style="width:375px;height:780px;border:10px solid #0B2A3C;border-radius:44px;background:#F7F5F2;overflow:hidden;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;justify-content:space-between;align-items:center;padding:0 24px;font:700 14px Manrope;color:#0B2A3C"><span>9:41</span><span>●●● ▮</span></div>
+      <div style="padding:8px 18px 14px;display:flex;flex-direction:column;gap:4px;border-bottom:1px solid #E6E1DA"><span style="font:600 12px Manrope;color:#5E5A55">Tallyfield · 3 available</span><span style="font:800 20px/1.2 Manrope;color:#0B2A3C">React Native + Stripe · 8 hrs/wk</span></div>
+      <div style="flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ builders }}" as="b" hint-placeholder-count="3">
+          <div style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:50%;background:#0B2A3C;color:#fff;display:grid;place-items:center;font:700 13px Manrope">{{ b.init }}</span><div style="flex:1;display:flex;flex-direction:column"><span style="font:800 16px Manrope;color:#0B2A3C">{{ b.name }}</span><span style="font-size:12px;color:#5E5A55">{{ b.role }}</span></div><span style="font:800 18px Manrope;color:#0B2A3C">{{ b.hrs }}<span style="font-size:11px;color:#5E5A55"> hrs/wk</span></span></div>
+            <div style="height:6px;border-radius:3px;background:#E6E1DA;overflow:hidden"><div style="height:100%;width:{{ b.pct }}%;background:#00C2B2"></div></div>
+            <span style="font-size:13px;color:#1C1A17">✓ {{ b.top }}</span>
+            <button style="min-height:44px;background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;font:800 14px Manrope">Request to commit</button>
+          </div>
+        </sc-for>
+        <div style="background:#EFECE8;border:1px dashed #BDB6AC;border-radius:14px;padding:16px;display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:50%;background:#BDB6AC;color:#fff;display:grid;place-items:center;font:700 13px Manrope">ML</span><div style="flex:1;display:flex;flex-direction:column"><span style="font:800 15px Manrope;color:#3D3A36">Marcus L.</span><span style="font:700 12px Manrope;color:#5E5A55">0 hrs free until Dec 14</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px;align-items:center"><span style="font:700 13px Manrope;color:#5E5A55">Builder passport</span>
+    <div style="width:375px;height:780px;border:10px solid #0B2A3C;border-radius:44px;background:#F7F5F2;overflow:hidden;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;justify-content:space-between;align-items:center;padding:0 24px;font:700 14px Manrope;color:#0B2A3C"><span>9:41</span><span>●●● ▮</span></div>
+      <div style="flex:1;overflow:auto;padding:12px 18px 18px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:12px;align-items:center"><span style="width:56px;height:56px;border-radius:50%;background:#0B2A3C;color:#fff;display:grid;place-items:center;font:700 19px Manrope">PS</span><div style="display:flex;flex-direction:column"><span style="font:800 22px Manrope;color:#0B2A3C">Priya S.</span><span style="font-size:13px;color:#5E5A55">Full-stack developer · Calgary</span></div></div>
+        <div style="background:#0B2A3C;color:#fff;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px"><span style="font:800 32px/1 Manrope">8 hrs/wk</span><span style="font:600 14px Manrope;color:#E0F7F5">free until Dec 15</span><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px"><div style="height:7px;border-radius:4px;background:#00C2B2"></div><div style="height:7px;border-radius:4px;background:#00C2B2"></div><div style="height:7px;border-radius:4px;background:#00C2B2"></div><div style="height:7px;border-radius:4px;background:#00C2B2"></div></div></div>
+        <div style="background:#fff;border:1px solid #E6E1DA;border-radius:12px;padding:14px;display:flex;gap:10px;align-items:center"><span style="font:800 30px Manrope;color:#0B2A3C">{{ commitCount }}</span><span style="font:600 13px Manrope;color:#3D3A36">commitments completed</span></div>
+        <span style="font:800 16px Manrope;color:#0B2A3C">Verified credentials</span>
+        <sc-for list="{{ timeline }}" as="t" hint-placeholder-count="4">
+          <div style="display:flex;gap:10px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#00C2B2;color:#0B2A3C;display:grid;place-items:center;font-size:11px;font-weight:800">✓</span><div style="display:flex;flex-direction:column;gap:2px"><span style="font:700 14px Manrope;color:#0B2A3C">{{ t.title }}</span><span style="font:600 12px Manrope;color:#00574F">{{ t.source }}</span></div></div>
+        </sc-for>
+      </div>
+      <div style="padding:12px 18px 22px;background:#fff;border-top:1px solid #E6E1DA"><button style="width:100%;min-height:48px;background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;font:800 15px Manrope">Request to commit</button></div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px;align-items:center"><span style="font:700 13px Manrope;color:#5E5A55">E-sign</span>
+    <div style="width:375px;height:780px;border:10px solid #0B2A3C;border-radius:44px;background:#F7F5F2;overflow:hidden;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;justify-content:space-between;align-items:center;padding:0 24px;font:700 14px Manrope;color:#0B2A3C"><span>9:41</span><span>●●● ▮</span></div>
+      <div style="flex:1;overflow:auto;padding:12px 18px;display:flex;flex-direction:column;gap:14px">
+        <span style="font:600 12px Manrope;color:#5E5A55">Step 3 of 3 · Sign</span>
+        <span style="font:800 22px/1.2 Manrope;color:#0B2A3C">Tallyfield × Priya S.</span>
+        <div style="background:#FFF4E5;border:1px solid #F2C98A;border-radius:10px;padding:12px;font:600 13px/1.45 Manrope;color:#5C3B00">Template, not legal advice. Talk to a lawyer for equity or binding terms. <a href="#" style="color:#5C3B00">Find a lawyer</a></div>
+        <div style="background:#fff;border:1px solid #E6E1DA;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;font-size:13px;color:#1C1A17"><span>8 hrs/wk · Nov 2 – Dec 11</span><span>Equity (intent only)</span><span>7 days' notice to exit</span></div>
+        <div style="background:#fff;border:1px solid #E6E1DA;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px"><span style="font:700 13px Manrope;color:#5E5A55">Sign as Priya S.</span><div style="height:90px;border:1.5px dashed #BDB6AC;border-radius:8px;display:grid;place-items:center;font:600 13px Manrope;color:#5E5A55">Draw your signature</div><span style="font:700 13px Manrope;color:#00574F">✓ Leah M. signed Oct 24</span></div>
+      </div>
+      <div style="padding:12px 18px 22px;background:#fff;border-top:1px solid #E6E1DA;display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between;font:700 14px Manrope;color:#0B2A3C"><span>Commitment Deal fee</span><span>$49</span></div><button style="width:100%;min-height:48px;background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;font:800 15px Manrope">Sign agreement</button></div>
+    </div>
+  </div>
+</main>
+</sc-if>
+
+<sc-if value="{{ showFooter }}" hint-placeholder-val="{{ true }}">
+<footer style="border-top:1px solid #E6E1DA;background:#fff">
+  <div style="max-width:1200px;margin:0 auto;padding:32px;display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap">
+    <svg width="180" height="40" viewBox="0 0 180 40" fill="none" stroke="#0B2A3C" stroke-width="1.5" aria-label="Calgary skyline"><path d="M0 39h180M8 39V26h10v13M22 39V18h8v21M34 39V22h12v17M52 39V8l4-6 4 6v31M54 12h4M64 39V20h10v19M78 39V14h9v25M91 39V24h8v15M103 39V3M100 39V12h6v27M110 39V17l6-4 6 4v22M126 39V25h12v14M142 39V21h7v18M153 39V28h14v11"/></svg>
+    <span style="flex:1;font-size:13px;color:#5E5A55">CrewYYC · Made in Calgary · Credentials verified by event organizers</span>
+    <div style="display:flex;gap:18px;font-size:13px"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Contact</a></div>
+  </div>
+</footer>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = (() => {
+    const base = { screen:'landing', role:'builder', hours:8, skills:['React','React Native','Stripe','Node'], comp:['Paid','Equity'], stage:'Prototype', adult:false, consent:false, paywall:false, needSkills:['React Native','Stripe'], needComp:['Paid','Equity'], needHours:8, requested:{}, step:1, compType:'Equity', signedF:false, signedB:false, paid:false, ciF:null, ciB:null, invSub:false, invType:'All', invAvail:false, intros:{} };
+    try { const sc = localStorage.getItem('crewyyc_screen'); if (sc) base.screen = sc; } catch(e) {}
+    return base;
+  })();
+  go = s => { this.setState({ screen:s, paywall:false }); try { localStorage.setItem('crewyyc_screen', s); } catch(e) {} window.scrollTo(0,0); };
+  toggle = (key, v) => this.setState(st => ({ [key]: st[key].includes(v) ? st[key].filter(x => x !== v) : [...st[key], v] }));
+  chips(opts, key) { const s = this.state; return opts.map(l => { const on = s[key].includes(l); return { label:l, on, bg:on?'#0B2A3C':'#fff', fg:on?'#fff':'#0B2A3C', bd:on?'#0B2A3C':'#D6D0C7', mark:on?'✓ ':'', onClick:() => this.toggle(key, l) }; }); }
+  single(opts, key, onBg='#0B2A3C') { const s = this.state; return opts.map(l => { const on = s[key] === l; return { label:l, on, bg:on?onBg:'#fff', fg:on?'#fff':'#0B2A3C', bd:on?'#0B2A3C':'#D6D0C7', mark:on?'✓ ':'', onClick:() => this.setState({ [key]: l }) }; }); }
+  renderVals() {
+    const s = this.state;
+    const ids = [['landing','1 Landing'],['onboard','2 Onboarding'],['passport','3 Passport'],['dashboard','4 Dashboard'],['matches','5 Matches'],['deal','6 Deal'],['checkin','7 Check-in'],['investor','8 Investors'],['pricing','9 Pricing'],['mobile','10 Mobile']];
+    const is = {}; ids.forEach(([i]) => is['is_' + i] = s.screen === i);
+    const marketing = ['landing','onboard','pricing'].includes(s.screen);
+    const bothShipped = s.ciF === 'Shipped' && s.ciB === 'Shipped';
+    const done = bothShipped;
+    const builders = [
+      { rank:1, init:'PS', name:'Priya S.', first:'Priya', role:'Full-stack developer', hrs:8, until:'Dec 15', pct:40, top:'Built a Stripe checkout at BuildYYC', reasons:['Built a Stripe checkout at BuildYYC 2026','8 hrs/wk free','Open to equity','Completed 3 commitments'] },
+      { rank:2, init:'DO', name:'Daniel O.', first:'Daniel', role:'Mobile developer', hrs:10, until:'Jan 8', pct:50, top:'Shipped 2 React Native apps', reasons:['Shipped 2 React Native apps, co-signed by teammates','10 hrs/wk free','Hack the Change 2025 · confirmed'] },
+      { rank:3, init:'AK', name:'Amara K.', first:'Amara', role:'Full-stack developer', hrs:6, until:'Nov 27', pct:30, top:'Stripe payments at CalgaryHacks 2026', reasons:['Stripe payments project at CalgaryHacks 2026','6 hrs/wk free','Open to equity or portfolio'] },
+    ].map(b => ({ ...b, requested:!!s.requested[b.init], notRequested:!s.requested[b.init], onRequest:() => this.setState(st => ({ requested:{ ...st.requested, [b.init]:true } })) }));
+    const timeline = [
+      ...(done ? [{ date:'Dec 2026', kind:'Commitment shipped', title:'Tallyfield pre-order checkout', detail:'React Native + Stripe · 6 weeks', source:'Co-signed by Leah M., founder', isNew:true }] : []),
+      { date:'Sep 2026', kind:'Commitment shipped', title:'Booking flow for Rinkside', detail:'Next.js · 4 weeks · 6 hrs/wk', source:'Co-signed by founder Omar D.' },
+      { date:'Jun 2026', kind:'Event', title:'BuildYYC 2026', detail:'Built a Stripe checkout for a local marketplace', source:'Confirmed by BuildYYC organizers' },
+      { date:'Apr 2026', kind:'Shipped project', title:'Ridewise transit alerts', detail:'React Native app, 1,200 users', source:'Co-signed by 3 teammates' },
+      { date:'Feb 2026', kind:'Event', title:'CalgaryHacks 2026', detail:'Finalist, fintech track', source:'Confirmed by organizer' },
+      { date:'Jan 2026', kind:'Talk', title:'Product Calgary meetup', detail:'Speaker: “Shipping payments in a weekend”', source:'Confirmed by Product Calgary' },
+      { date:'Nov 2025', kind:'Event', title:'Hack the Change 2025', detail:'Built a food-bank inventory tool', source:'Confirmed by organizer' },
+    ];
+    const ws = ['Nov 2','Nov 9','Nov 16','Nov 23'];
+    const isEquity = s.compType === 'Equity', isPaid = s.compType === 'Paid';
+    const compClause = isPaid ? 'Tallyfield will pay Priya $4,800 CAD in two equal payments: on Nov 20 and on Dec 11.' : isEquity ? 'Tallyfield records an intent to offer Priya 0.5% equity with a 6-month cliff. This is intent only. Any shares must be issued through a lawyer.' : 'Priya may show the shipped work in her portfolio, credited to her.';
+    const ciOpts = (key) => ['Shipped','Still building','Ended'].map(l => { const on = s[key] === l; return { label:l, on, bg:on?(l==='Shipped'?'#E0F7F5':'#F1EEEA'):'#fff', fg:'#0B2A3C', bd:on?(l==='Shipped'?'#00A396':'#0B2A3C'):'#D6D0C7', mark:on?'✓ ':'', onClick:() => this.setState({ [key]: l }) }; });
+    let checkinNote = '';
+    if (s.ciF && s.ciB && !bothShipped) checkinNote = (s.ciF === 'Ended' || s.ciB === 'Ended') ? 'Deal closed. Nothing is added to either profile.' : "Got it. We'll check in with you both again in 2 weeks.";
+    else if ((s.ciF || s.ciB) && !(s.ciF && s.ciB)) checkinNote = 'Waiting for the other person to answer.';
+    const allProfiles = [
+      { init:'LM', name:'Leah M.', first:'Leah', role:'Founder, Tallyfield · Agtech', type:'Founder', facts:['BuildYYC 2026 · confirmed','2 commitments completed'], avail:'Building now', hasHours:true },
+      { init:'PS', name:'Priya S.', first:'Priya', role:'Full-stack developer', type:'Builder', facts:['CalgaryHacks 2026 finalist','3 commitments completed','4 shipped projects'], avail:'8 hrs/wk free', hasHours:true },
+      { init:'OR', name:'Owen R.', first:'Owen', role:'Founder, GridNote · Energy', type:'Founder', facts:['Hack the Change 2025 · confirmed','1 commitment completed'], avail:'Building now', hasHours:true },
+      { init:'SH', name:'Sana H.', first:'Sana', role:'Data scientist', type:'Builder', facts:['Product Calgary speaker','2 shipped projects'], avail:'5 hrs/wk free', hasHours:true },
+      { init:'ML', name:'Marcus L.', first:'Marcus', role:'Senior mobile + payments', type:'Builder', facts:['5 shipped projects','6 commitments completed'], avail:'0 hrs free until Dec 14', hasHours:false },
+    ];
+    const profiles = allProfiles.filter(p => (s.invType === 'All' || p.type + 's' === s.invType) && (!s.invAvail || p.hasHours)).map(p => ({ ...p, availFg:p.hasHours?'#00574F':'#5E5A55', asked:!!s.intros[p.init], notAsked:!s.intros[p.init], onIntro:() => this.setState(st => ({ intros:{ ...st.intros, [p.init]:true } })) }));
+    const plans = [
+      { who:'Everyone', name:'Free', price:'$0', unit:'', items:['Verified profile','Browse and matching','Messaging','1 active idea post for founders'], cta:'Join free', onClick:() => this.go('onboard') },
+      { who:'Founders', name:'Founder Plus', price:'$19', unit:'/month', items:['Unlimited idea posts','Boosted visibility','Cancel any time'], cta:'Start Founder Plus', onClick:() => this.go('dashboard') },
+      { who:'Per deal', name:'Commitment Deal', price:'$49', unit:'per signed deal', items:['Same price for cash, equity or portfolio','Plain-language agreement from a lawyer-reviewed template','E-sign and follow-through check-in'], cta:'How deals work', onClick:() => this.go('deal'), primary:true },
+      { who:'Cash contracts', name:'Paid Contract', price:'9%', unit:'of contract value', items:['Single monetary deal, cash only','Replaces the $49 deal fee','Same agreement and check-in'], cta:'Learn more', onClick:() => this.go('deal') },
+      { who:'Investors', name:'Investor Access', price:'$300', unit:'/month, flat', items:['Browse verified founders and builders','Request intros (opt-in required)','No fees tied to investments'], cta:'Get access', onClick:() => this.go('investor') },
+      { who:'Programs', name:'Program Licence', price:'$6,000', unit:'/year', items:['For accelerators and programs','Whole cohort covered','All cohort commitment deals included'], cta:'Talk to us', onClick:() => {} },
+    ].map(p => ({ ...p, top:p.primary?'#00C2B2':'#0B2A3C', btnBg:p.primary?'#0B2A3C':'#fff', btnFg:p.primary?'#fff':'#0B2A3C' }));
+    const fee = isPaid ? { feeLabel:'9% fee applies · cash contract', feeAmount:'$432', feeNote:'9% of $4,800. Replaces the $49 deal fee.' } : { feeLabel:'Commitment Deal fee', feeAmount:'$49', feeNote:`Flat. Same price for ${isEquity?'equity':'portfolio'}, cash or portfolio deals.` };
+    const bothSigned = s.signedF && s.signedB;
+    return {
+      ...is, marketingNav:marketing, appNav:!marketing && s.screen !== 'mobile', showFooter:s.screen !== 'mobile',
+      screens: ids.map(([i, l]) => ({ label:l, bg:s.screen===i?'#00C2B2':'transparent', fg:s.screen===i?'#0B2A3C':'#E0E8EC', onClick:() => this.go(i) })),
+      appLinks: [['dashboard','Dashboard'],['matches','Matches'],['deal','Deals'],['passport','Passports'],['investor','Investors']].map(([i,l]) => ({ label:l, bg:s.screen===i?'#EEF2F4':'transparent', onClick:() => this.go(i) })),
+      viewerLabel: s.screen === 'investor' ? 'Ridgeline Ventures' : 'Leah M. · Tallyfield', viewerInit: s.screen === 'investor' ? 'RV' : 'LM',
+      goLanding:() => this.go('landing'), goPricing:() => this.go('pricing'), goInvestor:() => this.go('investor'), goPassport:() => this.go('passport'), goMatches:() => this.go('matches'), goDeal:() => this.go('deal'), goCheckin:() => this.go('checkin'),
+      goOnboardBuilder:() => { this.setState({ role:'builder' }); this.go('onboard'); }, goOnboardFounder:() => { this.setState({ role:'founder' }); this.go('onboard'); },
+      roles: [['builder','Builder','Developers, designers, PMs, data'],['founder','Founder','An idea, a deadline and some budget']].map(([k,l,d]) => ({ label:l, desc:d, on:s.role===k, bd:s.role===k?'#0B2A3C':'#E6E1DA', onClick:() => this.setState({ role:k }) })),
+      isBuilder:s.role==='builder', isFounder:s.role==='founder',
+      skillChips:this.chips(['React','React Native','Node','Stripe','TypeScript','Figma','Python','Product management','Data'], 'skills'),
+      compChips:this.chips(['Paid','Equity','Portfolio','Open'], 'comp'),
+      stageChips:this.single(['Idea','Prototype','Early users','Revenue'], 'stage'),
+      hours:s.hours, onHours:e => this.setState({ hours:+e.target.value }),
+      weeks: ws.map(l => ({ label:l, pct:s.hours/20*100 })),
+      hoursText: s.hours > 0 ? `${s.hours} hrs/wk free until Nov 29` : '0 hrs free until Nov 29',
+      adult:s.adult, consent:s.consent, toggleAdult:() => this.setState({ adult:!s.adult }), toggleConsent:() => this.setState({ consent:!s.consent }),
+      cantCreate:!(s.adult && s.consent), createOpacity:(s.adult && s.consent)?1:.5,
+      createLabel: s.role==='builder' ? 'Create my passport' : 'Create my founder profile',
+      createAccount:() => this.go(s.role==='builder' ? 'passport' : 'dashboard'),
+      priyaSkills:['React','React Native','Node','Stripe','TypeScript','Postgres'],
+      priyaWeeks: ws.map(l => ({ label:l, pct:40 })),
+      timeline, commitCount: done ? 4 : 3,
+      paywall:s.paywall, openPaywall:() => this.setState({ paywall:true }), closePaywall:() => this.setState({ paywall:false }),
+      needSkillChips:this.chips(['React Native','Stripe','Node','TypeScript','Figma','Firebase'], 'needSkills'),
+      needCompChips:this.chips(['Paid','Equity','Portfolio'], 'needComp'),
+      needHours:s.needHours, onNeedHours:e => this.setState({ needHours:+e.target.value }),
+      builders,
+      steps: ['Agree terms','Review agreement','Sign & pay'].map((l,i) => ({ n:i+1, label:l, bar:i+1<=s.step?'#0B2A3C':'#E6E1DA', fg:i+1<=s.step?'#0B2A3C':'#5E5A55' })),
+      step1:s.step===1, step2:s.step===2, step3:s.step===3,
+      next:() => { this.setState({ step:Math.min(3, s.step+1) }); window.scrollTo(0,0); }, back:() => this.setState({ step:Math.max(1, s.step-1) }),
+      compTypes:this.single(['Paid','Equity','Portfolio'], 'compType'), isEquity, isPaid, isPortfolio:s.compType==='Portfolio', compClause,
+      signers: [
+        { role:'Founder', name:'Leah M. · Tallyfield', signed:s.signedF, unsigned:!s.signedF, sig:s.signedF?'Leah M.':'', when:'Oct 24, 10:12', cta:'Sign as Leah', onSign:() => this.setState({ signedF:true }) },
+        { role:'Builder', name:'Priya S.', signed:s.signedB, unsigned:!s.signedB, sig:s.signedB?'Priya S.':'', when:'Oct 24, 10:31', cta:'Simulate Priya signing', onSign:() => this.setState({ signedB:true }) },
+      ],
+      ...fee, paid:s.paid, cantPay:!bothSigned || s.paid, payOpacity:(bothSigned && !s.paid)?1:.5,
+      payLabel: s.paid ? '✓ Paid' : bothSigned ? (isPaid ? 'Confirm contract' : 'Pay $49') : 'Waiting for both signatures',
+      pay:() => this.setState({ paid:true }),
+      checkins: [
+        { init:'LM', name:'Leah M.', role:'Founder · Tallyfield', opts:ciOpts('ciF') },
+        { init:'PS', name:'Priya S.', role:'Builder', opts:ciOpts('ciB') },
+      ],
+      bothShipped, checkinNote, hasCheckinNote:!!checkinNote,
+      invSub:s.invSub, invLocked:!s.invSub, toggleSub:() => this.setState({ invSub:!s.invSub }), lockBlur:s.invSub?'none':'blur(5px)', lockPE:s.invSub?'auto':'none',
+      invTypes: ['All','Founders','Builders'].map(l => ({ label:l, bg:s.invType===l?'#0B2A3C':'transparent', fg:s.invType===l?'#fff':'#0B2A3C', onClick:() => this.setState({ invType:l }) })),
+      invAvail:s.invAvail, toggleAvail:() => this.setState({ invAvail:!s.invAvail }), profiles, invCount:profiles.length,
+      plans,
+      faqs: [
+        { q:'Why do I pay to commit?', a:'The fee filters for people who are serious about showing up.' },
+        { q:'When does the 9% fee apply?', a:'Only for a paid contract: a single cash deal. It replaces the $49 Commitment Deal fee. Equity and portfolio deals are always $49.' },
+        { q:'Is the agreement legal advice?', a:'No. It is generated from a lawyer-reviewed template. Talk to a lawyer for equity or binding terms.' },
+        { q:'What do investors pay?', a:'A flat $300/month for Investor Access. Intros need the other person to opt in.' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
