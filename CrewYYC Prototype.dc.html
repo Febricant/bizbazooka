@@ -397,11 +397,47 @@ input[type=range]{accent-color:#00A396}input[type=checkbox]{accent-color:#0B2A3C
 </main>
 </sc-if>
 
+<!-- 8a INVESTOR SETUP -->
+<sc-if value="{{ is_investorIntro }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="08a Investor setup" style="max-width:720px;margin:0 auto;padding:48px 24px 80px;display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;flex-direction:column;gap:8px"><span style="font:700 13px Manrope;color:#00675E">For investors · about 2 minutes</span><h1 style="margin:0;font:800 36px Manrope;letter-spacing:-.02em;color:#0B2A3C">Set up your investor profile</h1><p style="margin:0;font-size:16px;line-height:1.55;color:#3D3A36">Tell us who you are and what you back. We use it to put the founders and builders that fit your focus first. Every intro still needs the other person to opt in.</p></div>
+  <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <sc-for list="{{ invSteps }}" as="st" hint-placeholder-count="2"><li style="display:flex;flex-direction:column;gap:8px"><div style="height:4px;border-radius:2px;background:{{ st.bar }}"></div><span style="font:700 13px Manrope;color:{{ st.fg }}">{{ st.label }}</span></li></sc-for>
+  </ol>
+  <div style="background:#fff;border:1px solid #E6E1DA;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:24px">
+    <sc-if value="{{ invStep1 }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Your name<input defaultValue="{{ invName }}" onChange="{{ onInvName }}" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+        <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Title<input defaultValue="{{ invTitle }}" onChange="{{ onInvTitle }}" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+        <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Firm or fund<input defaultValue="{{ invFirm }}" onChange="{{ onInvFirm }}" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+        <label style="display:flex;flex-direction:column;gap:6px;font:700 13px Manrope;color:#0B2A3C">Website or LinkedIn<input defaultValue="{{ invLink }}" placeholder="https://" onChange="{{ onInvLink }}" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500"></label>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 14px Manrope;color:#0B2A3C">Investor type</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ invKindChips }}" as="c" hint-placeholder-count="4"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 15px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+      <button disabled="{{ cantInvNext }}" onClick="{{ invNext }}" style="background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:15px;font:800 16px Manrope;cursor:pointer;opacity:{{ invNextOpacity }}">Next: your market</button>
+    </sc-if>
+    <sc-if value="{{ invStep2 }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 14px Manrope;color:#0B2A3C">Stage you invest in</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ invStageChips }}" as="c" hint-placeholder-count="4"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 15px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 14px Manrope;color:#0B2A3C">Sectors you back</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ invSectorChips }}" as="c" hint-placeholder-count="4"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 13px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 14px Manrope;color:#0B2A3C">Typical cheque size</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ invCheckChips }}" as="c" hint-placeholder-count="4"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 15px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 14px Manrope;color:#0B2A3C">Where you invest</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ invGeoChips }}" as="c" hint-placeholder-count="4"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 15px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+      <div style="display:flex;flex-direction:column;gap:10px"><span style="font:700 14px Manrope;color:#0B2A3C">How involved you are</span><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ invInvolveChips }}" as="c" hint-placeholder-count="4"><button aria-pressed="{{ c.on }}" onClick="{{ c.onClick }}" style="background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:999px;padding:7px 15px;font:600 14px Manrope;cursor:pointer">{{ c.mark }}{{ c.label }}</button></sc-for></div></div>
+      <label style="display:flex;flex-direction:column;gap:6px;font:700 14px Manrope;color:#0B2A3C">Your thesis, in a sentence or two<textarea rows="3" defaultValue="{{ invThesis }}" onChange="{{ onInvThesis }}" style="border:1px solid #D6D0C7;border-radius:8px;padding:10px 12px;font-weight:500;line-height:1.5;resize:vertical"></textarea></label>
+      <div style="border-top:1px solid #E6E1DA;padding-top:20px"><label style="display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;color:#1C1A17;cursor:pointer"><input type="checkbox" checked="{{ invConsent }}" onChange="{{ toggleInvConsent }}">I agree to the Terms and Privacy Policy, and consent to CrewYYC showing this profile to founders and builders I request an intro with.</label></div>
+      <div style="display:flex;gap:12px"><button onClick="{{ invBack }}" style="background:#fff;color:#0B2A3C;border:1.5px solid #0B2A3C;border-radius:8px;padding:15px 22px;font:700 16px Manrope;cursor:pointer">Back</button><button disabled="{{ cantInvFinish }}" onClick="{{ invFinish }}" style="flex:1;background:#FF5A5F;color:#0B2A3C;border:none;border-radius:8px;padding:15px;font:800 16px Manrope;cursor:pointer;opacity:{{ invFinishOpacity }}">Save and browse founders and builders</button></div>
+    </sc-if>
+  </div>
+</main>
+</sc-if>
+
 <!-- 8 INVESTOR -->
 <sc-if value="{{ is_investor }}" hint-placeholder-val="{{ false }}">
 <main data-screen-label="08 Investor view" style="max-width:1200px;margin:0 auto;padding:40px 32px 80px;display:flex;flex-direction:column;gap:24px">
   <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:6px"><span style="font:700 13px Manrope;color:#5E5A55">Investor access</span><h1 style="margin:0;font:800 32px Manrope;letter-spacing:-.02em;color:#0B2A3C">Verified founders and builders in Calgary</h1></div>
     <label style="display:flex;align-items:center;gap:8px;font:600 13px Manrope;color:#3D3A36"><input type="checkbox" checked="{{ invSub }}" onChange="{{ toggleSub }}">Preview as subscriber</label></div>
+  <div style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><span style="font:700 13px Manrope;color:#5E5A55">Your focus</span><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><sc-for list="{{ invFocusChips }}" as="f" hint-placeholder-count="2"><span style="background:#E0F7F5;color:#00574F;border-radius:999px;padding:3px 10px;font:600 12px Manrope">{{ f.label }}</span></sc-for><span style="font:600 13px Manrope;color:#3D3A36">{{ invSummary }}</span></div></div>
+    <button onClick="{{ invEdit }}" style="background:#fff;color:#0B2A3C;border:1.5px solid #0B2A3C;border-radius:8px;padding:9px 16px;font:700 14px Manrope;cursor:pointer">Edit profile</button>
+  </div>
   <div style="position:relative">
     <div style="display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:start;filter:{{ lockBlur }};pointer-events:{{ lockPE }}" aria-hidden="{{ invLocked }}">
       <aside style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:20px">
@@ -417,7 +453,7 @@ input[type=range]{accent-color:#00A396}input[type=checkbox]{accent-color:#0B2A3C
           <article style="background:#fff;border:1px solid #E6E1DA;border-radius:14px;padding:20px;display:grid;grid-template-columns:48px minmax(0,1fr) 200px;gap:16px;align-items:start">
             <span style="width:48px;height:48px;border-radius:50%;background:#0B2A3C;color:#fff;display:grid;place-items:center;font:700 16px Manrope">{{ p.init }}</span>
             <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><span style="font:800 18px Manrope;color:#0B2A3C">{{ p.name }}</span><span style="font-size:14px;color:#3D3A36">{{ p.role }}</span><span style="background:#F1EEEA;border-radius:4px;padding:2px 8px;font:600 12px Manrope;color:#3D3A36">{{ p.type }}</span></div>
+              <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><span style="font:800 18px Manrope;color:#0B2A3C">{{ p.name }}</span><span style="font-size:14px;color:#3D3A36">{{ p.role }}</span><span style="background:#F1EEEA;border-radius:4px;padding:2px 8px;font:600 12px Manrope;color:#3D3A36">{{ p.type }}</span><sc-if value="{{ p.fit }}" hint-placeholder-val="{{ false }}"><span style="background:#FFF4E5;color:#5C3B00;border-radius:4px;padding:2px 8px;font:700 12px Manrope">★ Fits your focus</span></sc-if></div>
               <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ p.facts }}" as="f" hint-placeholder-count="2"><span style="background:#E0F7F5;color:#00574F;border-radius:999px;padding:3px 10px;font:600 12px Manrope">✓ {{ f }}</span></sc-for></div>
             </div>
             <div style="display:flex;flex-direction:column;gap:8px;align-items:stretch">
@@ -534,19 +570,20 @@ input[type=range]{accent-color:#00A396}input[type=checkbox]{accent-color:#0B2A3C
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = (() => {
-    const base = { screen:'landing', role:'builder', hours:8, skills:['React','React Native','Stripe','Node'], comp:['Paid','Equity'], stage:'Prototype', adult:false, consent:false, paywall:false, needSkills:['React Native','Stripe'], needComp:['Paid','Equity'], needHours:8, requested:{}, step:1, compType:'Equity', signedF:false, signedB:false, paid:false, ciF:null, ciB:null, invSub:false, invType:'All', invAvail:false, intros:{} };
+    const base = { screen:'landing', role:'builder', hours:8, skills:['React','React Native','Stripe','Node'], comp:['Paid','Equity'], stage:'Prototype', adult:false, consent:false, paywall:false, needSkills:['React Native','Stripe'], needComp:['Paid','Equity'], needHours:8, requested:{}, step:1, compType:'Equity', signedF:false, signedB:false, paid:false, ciF:null, ciB:null, invSub:false, invType:'All', invAvail:false, intros:{}, invDone:false, invStep:1, invName:'Jordan Ellis', invFirm:'Ridgeline Ventures', invTitle:'Partner', invLink:'', invKind:'VC fund', invStages:['Pre-seed','Seed'], invSectors:['Agtech','Energy'], invCheck:'$50K–$250K', invGeo:['Calgary','Alberta'], invInvolve:'Advisory', invThesis:'Calgary founders with a working prototype, a real customer conversation and a team that has already shipped together.', invConsent:false };
     try { const sc = localStorage.getItem('crewyyc_screen'); if (sc) base.screen = sc; } catch(e) {}
+    if (base.screen === 'investor') base.screen = 'investorIntro';
     return base;
   })();
-  go = s => { this.setState({ screen:s, paywall:false }); try { localStorage.setItem('crewyyc_screen', s); } catch(e) {} window.scrollTo(0,0); };
+  go = s => { if (s === 'investor' && !this.state.invDone) s = 'investorIntro'; this.setState({ screen:s, paywall:false }); try { localStorage.setItem('crewyyc_screen', s); } catch(e) {} window.scrollTo(0,0); };
   toggle = (key, v) => this.setState(st => ({ [key]: st[key].includes(v) ? st[key].filter(x => x !== v) : [...st[key], v] }));
   chips(opts, key) { const s = this.state; return opts.map(l => { const on = s[key].includes(l); return { label:l, on, bg:on?'#0B2A3C':'#fff', fg:on?'#fff':'#0B2A3C', bd:on?'#0B2A3C':'#D6D0C7', mark:on?'✓ ':'', onClick:() => this.toggle(key, l) }; }); }
   single(opts, key, onBg='#0B2A3C') { const s = this.state; return opts.map(l => { const on = s[key] === l; return { label:l, on, bg:on?onBg:'#fff', fg:on?'#fff':'#0B2A3C', bd:on?'#0B2A3C':'#D6D0C7', mark:on?'✓ ':'', onClick:() => this.setState({ [key]: l }) }; }); }
   renderVals() {
     const s = this.state;
-    const ids = [['landing','1 Landing'],['onboard','2 Onboarding'],['passport','3 Passport'],['dashboard','4 Dashboard'],['matches','5 Matches'],['deal','6 Deal'],['checkin','7 Check-in'],['investor','8 Investors'],['pricing','9 Pricing'],['mobile','10 Mobile']];
+    const ids = [['landing','1 Landing'],['onboard','2 Onboarding'],['passport','3 Passport'],['dashboard','4 Dashboard'],['matches','5 Matches'],['deal','6 Deal'],['checkin','7 Check-in'],['investor','8 Investors'],['investorIntro','8a Investor setup'],['pricing','9 Pricing'],['mobile','10 Mobile']];
     const is = {}; ids.forEach(([i]) => is['is_' + i] = s.screen === i);
-    const marketing = ['landing','onboard','pricing'].includes(s.screen);
+    const marketing = ['landing','onboard','pricing','investorIntro'].includes(s.screen);
     const bothShipped = s.ciF === 'Shipped' && s.ciB === 'Shipped';
     const done = bothShipped;
     const builders = [
@@ -571,13 +608,13 @@ class Component extends DCLogic {
     if (s.ciF && s.ciB && !bothShipped) checkinNote = (s.ciF === 'Ended' || s.ciB === 'Ended') ? 'Deal closed. Nothing is added to either profile.' : "Got it. We'll check in with you both again in 2 weeks.";
     else if ((s.ciF || s.ciB) && !(s.ciF && s.ciB)) checkinNote = 'Waiting for the other person to answer.';
     const allProfiles = [
-      { init:'LM', name:'Leah M.', first:'Leah', role:'Founder, Tallyfield · Agtech', type:'Founder', facts:['BuildYYC 2026 · confirmed','2 commitments completed'], avail:'Building now', hasHours:true },
+      { init:'LM', name:'Leah M.', first:'Leah', role:'Founder, Tallyfield · Agtech', sector:'Agtech', type:'Founder', facts:['BuildYYC 2026 · confirmed','2 commitments completed'], avail:'Building now', hasHours:true },
       { init:'PS', name:'Priya S.', first:'Priya', role:'Full-stack developer', type:'Builder', facts:['CalgaryHacks 2026 finalist','3 commitments completed','4 shipped projects'], avail:'8 hrs/wk free', hasHours:true },
-      { init:'OR', name:'Owen R.', first:'Owen', role:'Founder, GridNote · Energy', type:'Founder', facts:['Hack the Change 2025 · confirmed','1 commitment completed'], avail:'Building now', hasHours:true },
+      { init:'OR', name:'Owen R.', first:'Owen', role:'Founder, GridNote · Energy', sector:'Energy', type:'Founder', facts:['Hack the Change 2025 · confirmed','1 commitment completed'], avail:'Building now', hasHours:true },
       { init:'SH', name:'Sana H.', first:'Sana', role:'Data scientist', type:'Builder', facts:['Product Calgary speaker','2 shipped projects'], avail:'5 hrs/wk free', hasHours:true },
       { init:'ML', name:'Marcus L.', first:'Marcus', role:'Senior mobile + payments', type:'Builder', facts:['5 shipped projects','6 commitments completed'], avail:'0 hrs free until Dec 14', hasHours:false },
     ];
-    const profiles = allProfiles.filter(p => (s.invType === 'All' || p.type + 's' === s.invType) && (!s.invAvail || p.hasHours)).map(p => ({ ...p, availFg:p.hasHours?'#00574F':'#5E5A55', asked:!!s.intros[p.init], notAsked:!s.intros[p.init], onIntro:() => this.setState(st => ({ intros:{ ...st.intros, [p.init]:true } })) }));
+    const profiles = allProfiles.filter(p => (s.invType === 'All' || p.type + 's' === s.invType) && (!s.invAvail || p.hasHours)).map(p => ({ ...p, fit:!!p.sector && s.invSectors.includes(p.sector), availFg:p.hasHours?'#00574F':'#5E5A55', asked:!!s.intros[p.init], notAsked:!s.intros[p.init], onIntro:() => this.setState(st => ({ intros:{ ...st.intros, [p.init]:true } })) })).sort((a,b) => (b.fit?1:0) - (a.fit?1:0));
     const plans = [
       { who:'Everyone', name:'Free', price:'$0', unit:'', items:['Verified profile','Browse and matching','Messaging','1 active idea post for founders'], cta:'Join free', onClick:() => this.go('onboard') },
       { who:'Founders', name:'Founder Plus', price:'$19', unit:'/month', items:['Unlimited idea posts','Boosted visibility','Cancel any time'], cta:'Start Founder Plus', onClick:() => this.go('dashboard') },
@@ -592,7 +629,7 @@ class Component extends DCLogic {
       ...is, marketingNav:marketing, appNav:!marketing && s.screen !== 'mobile', showFooter:s.screen !== 'mobile',
       screens: ids.map(([i, l]) => ({ label:l, bg:s.screen===i?'#00C2B2':'transparent', fg:s.screen===i?'#0B2A3C':'#E0E8EC', onClick:() => this.go(i) })),
       appLinks: [['dashboard','Dashboard'],['matches','Matches'],['deal','Deals'],['passport','Passports'],['investor','Investors']].map(([i,l]) => ({ label:l, bg:s.screen===i?'#EEF2F4':'transparent', onClick:() => this.go(i) })),
-      viewerLabel: s.screen === 'investor' ? 'Ridgeline Ventures' : 'Leah M. · Tallyfield', viewerInit: s.screen === 'investor' ? 'RV' : 'LM',
+      viewerLabel: s.screen === 'investor' ? (s.invFirm || 'Investor') : 'Leah M. · Tallyfield', viewerInit: s.screen === 'investor' ? ((s.invFirm || 'Investor').split(/\s+/).map(w => w[0]).join('').slice(0,2).toUpperCase()) : 'LM',
       goLanding:() => this.go('landing'), goPricing:() => this.go('pricing'), goInvestor:() => this.go('investor'), goPassport:() => this.go('passport'), goMatches:() => this.go('matches'), goDeal:() => this.go('deal'), goCheckin:() => this.go('checkin'),
       goOnboardBuilder:() => { this.setState({ role:'builder' }); this.go('onboard'); }, goOnboardFounder:() => { this.setState({ role:'founder' }); this.go('onboard'); },
       roles: [['builder','Builder','Developers, designers, PMs, data'],['founder','Founder','An idea, a deadline and some budget']].map(([k,l,d]) => ({ label:l, desc:d, on:s.role===k, bd:s.role===k?'#0B2A3C':'#E6E1DA', onClick:() => this.setState({ role:k }) })),
@@ -635,6 +672,24 @@ class Component extends DCLogic {
       invTypes: ['All','Founders','Builders'].map(l => ({ label:l, bg:s.invType===l?'#0B2A3C':'transparent', fg:s.invType===l?'#fff':'#0B2A3C', onClick:() => this.setState({ invType:l }) })),
       invAvail:s.invAvail, toggleAvail:() => this.setState({ invAvail:!s.invAvail }), profiles, invCount:profiles.length,
       plans,
+      invSteps: ['Your profile','Your market'].map((l,i) => ({ label:l, bar:i+1<=s.invStep?'#0B2A3C':'#E6E1DA', fg:i+1<=s.invStep?'#0B2A3C':'#5E5A55' })),
+      invStep1:s.invStep===1, invStep2:s.invStep===2,
+      invName:s.invName, invFirm:s.invFirm, invTitle:s.invTitle, invLink:s.invLink, invThesis:s.invThesis,
+      onInvName:e => this.setState({ invName:e.target.value }), onInvFirm:e => this.setState({ invFirm:e.target.value }), onInvTitle:e => this.setState({ invTitle:e.target.value }), onInvLink:e => this.setState({ invLink:e.target.value }), onInvThesis:e => this.setState({ invThesis:e.target.value }),
+      invKindChips:this.single(['Angel','VC fund','Family office','Corporate / CVC','Grant or program'], 'invKind'),
+      invStageChips:this.chips(['Pre-seed','Seed','Series A+'], 'invStages'),
+      invSectorChips:this.chips(['Agtech','Energy','Fintech','Health','AI & software','Climate','Industrial','Consumer'], 'invSectors'),
+      invCheckChips:this.single(['Under $50K','$50K–$250K','$250K–$1M','$1M+'], 'invCheck'),
+      invGeoChips:this.chips(['Calgary','Alberta','Western Canada','Canada-wide'], 'invGeo'),
+      invInvolveChips:this.single(['Hands-off','Advisory','Hands-on'], 'invInvolve'),
+      invConsent:s.invConsent, toggleInvConsent:() => this.setState({ invConsent:!s.invConsent }),
+      cantInvNext:!(s.invName.trim() && s.invFirm.trim()), invNextOpacity:(s.invName.trim() && s.invFirm.trim())?1:.5,
+      invNext:() => { this.setState({ invStep:2 }); window.scrollTo(0,0); }, invBack:() => { this.setState({ invStep:1 }); window.scrollTo(0,0); },
+      cantInvFinish:!(s.invStages.length && s.invSectors.length && s.invGeo.length && s.invConsent), invFinishOpacity:(s.invStages.length && s.invSectors.length && s.invGeo.length && s.invConsent)?1:.5,
+      invFinish:() => { this.setState({ invDone:true, screen:'investor', paywall:false }); try { localStorage.setItem('crewyyc_screen', 'investor'); } catch(e) {} window.scrollTo(0,0); },
+      invEdit:() => { this.setState({ invStep:1 }); this.go('investorIntro'); },
+      invFocusChips: s.invSectors.map(l => ({ label:l })),
+      invSummary: `${s.invKind} · ${s.invStages.join(', ') || 'Any stage'} · ${s.invCheck} · ${s.invGeo.join(', ') || 'Anywhere'} · ${s.invInvolve}`,
       faqs: [
         { q:'Why do I pay to commit?', a:'The fee filters for people who are serious about showing up.' },
         { q:'When does the 9% fee apply?', a:'Only for a paid contract: a single cash deal. It replaces the $49 Commitment Deal fee. Equity and portfolio deals are always $49.' },
